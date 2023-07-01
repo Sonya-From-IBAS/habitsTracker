@@ -147,8 +147,10 @@ main{
     border-radius: 10px;
     background: #FFF;
     align-items: center;
+    margin-bottom: 12px;
 }
 .habbit__day{
+    min-width: 150px;
     background: #FBFAFF;
     border-radius: 10px 0 0 10px;
     border-right:1px solid #E7EBFB;
@@ -184,5 +186,58 @@ main{
 
 .habbit__delete:hover{
     background-color: #eff2ff;
+}
 
+.button{
+    border-radius: 9px;
+    background: #EDECFE;
+    border: none;
+    color: #5051F9;
+    font-size: 13px;
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 14px 32px 11px 33px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.button:hover{
+    background-color: #dcdaff;
+}
+
+input{
+    border-radius: 9px;
+    border: 1px solid #E7EBFB;
+    background: #FFF;
+    border: 1px solid #94A3BD;
+    padding: 10px 20px;
+    color: #8899A8;
+    font-size: 14px;
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    flex-grow: 1;
+}
+
+input::placeholder{
+    color: #8899A8;
+}
+.habbit__form{
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    padding: 10px 10px 0px 25px;
+    position: relative;
+}
+.input_icon{
+    padding-left: 45px;
+}
+
+.input__icon{
+    position: absolute;
+    top: 20px;
+    left: 45px;
 }
