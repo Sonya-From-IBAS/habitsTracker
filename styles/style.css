@@ -1,0 +1,188 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'Comfortaa', cursive;
+    background-color: #F3F6FD;
+    font-weight: 400;
+}
+
+.app{
+    display: flex;
+
+}
+
+.panel{
+    background-color: #fff;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.logo{
+    margin-bottom: 50px;
+    cursor: pointer;
+}
+.menu{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.menu__list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.menu__item{
+    border-radius: 14px;
+    background: #FFF;
+    box-shadow: 0px 8px 14px 0px rgba(62, 107, 224, 0.12);
+    width: 46px;
+    height: 45px;   
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease-in;
+}
+
+.menu__item:hover{
+    background-color: #6A6AFB;
+}
+
+.menu__item:hover img{
+    filter: brightness(0) invert(1);
+}
+.menu__add{
+    border-radius: 14px;
+    border: 1px solid #CAD5FF;
+    width: 46px;
+    height: 45px;
+    background-color: inherit;
+    cursor: pointer;
+    transition: all 0.25s ease-in;
+}
+
+.menu__item-active{
+    background-color: #5051F9;
+}
+
+.menu__item-active img{
+    filter: brightness(0) invert(1);
+}
+.menu__add:hover{
+    background-color: #eff2ff;
+}
+.content{
+    min-width: 900px;
+    padding: 45px;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    gap: 360px;
+    align-items: flex-end;
+}
+h1{
+    color: #000;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.progress{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 235px;
+}
+.progress__text{
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress__name{
+    color: #232360;
+    font-size: 14px;
+    font-family: Comfortaa;
+    font-style: normal;
+
+    line-height: normal;
+}
+.progress__percent{
+    color: #768396;
+    font-size: 12px;
+    font-family: Comfortaa;
+    font-style: normal;
+
+    line-height: normal;
+}
+
+.progress__bar{
+    width: 100%;
+    height: 5px;
+    border-radius: 4px;
+    background: #E6E9ED;
+    position: relative;
+}
+.progress__cover-bar{
+    position: absolute;
+    width: 80%;
+    height: 5px;
+    border-radius: 4px;
+    background: #5051F9;
+}
+main{
+    margin-top: 30px;
+}
+
+.habbit{
+    display: flex;
+    border-radius: 10px;
+    background: #FFF;
+    align-items: center;
+}
+.habbit__day{
+    background: #FBFAFF;
+    border-radius: 10px 0 0 10px;
+    border-right:1px solid #E7EBFB;
+    color: #000;
+    font-size: 14px;
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 20px 40px;
+}
+.habbit__comment{
+    color: #23235F;
+    font-size: 16px;
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 20px 25px;
+}
+.habbit__delete{
+    margin-left: auto;
+    margin-right: 15px;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 2px;
+    transition: all 0.25 ease-in;
+}
+
+.habbit__delete:hover{
+    background-color: #eff2ff;
+
+}
