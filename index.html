@@ -19,15 +19,7 @@
         <img class="logo" src="./img/logo.svg" alt="logo" />
         <nav class="menu">
           <div class="menu__list">
-            <button class="menu__item menu__item-active">
-              <img src="./img/Dumbbell.svg" alt="add" />
-            </button>
-            <button class="menu__item">
-              <img src="./img/Water.svg" alt="water" />
-            </button>
-            <button class="menu__item">
-              <img src="./img/food.svg" alt="food" />
-            </button>
+
           </div>
           <button class="menu__add">
             <img src="./img/Add.svg" alt="add" />
@@ -36,12 +28,12 @@
       </div>
       <div class="content">
         <header>
-          <h1>Отжимания</h1>
+          <h1 class="h1">-</h1>
 
           <div class="progress">
             <div class="progress__text">
               <div class="progress__name">Прогресс</div>
-              <div class="progress__percent">80%</div>
+              <div class="progress__percent">%</div>
             </div>
 
             <div class="progress__bar">
@@ -49,8 +41,8 @@
             </div>
           </div>
         </header>
-        <main>
-          <div>
+        <main >
+          <div id="days">
             <div class="habbit">
               <div class="habbit__day">День 1</div>
               <div class="habbit__comment">
@@ -62,8 +54,8 @@
             </div>
           </div>
 
-          <div class="habbit">
-            <div class="habbit__day">День 2</div>
+          <div class="habbit" >
+            <div class="habbit__day" id="nextDay">День _</div>
             <form class="habbit__form">
               <input class="input_icon" type="text" placeholder="Комментарий" />
               <img class="input__icon" src="./img/comment.svg" alt="comment" />
