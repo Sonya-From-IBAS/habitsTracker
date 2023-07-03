@@ -212,7 +212,7 @@ input {
   background: #fff;
   border: 1px solid #94a3bd;
   padding: 10px 20px;
-  color: #8899a8;
+  color: #23235f;
   font-size: 14px;
   font-family: Comfortaa;
   font-style: normal;
@@ -224,6 +224,11 @@ input {
 input::placeholder {
   color: #8899a8;
 }
+
+input.error{
+  border: 1px solid red;
+}
+
 .habbit__form {
   display: flex;
   gap: 15px;

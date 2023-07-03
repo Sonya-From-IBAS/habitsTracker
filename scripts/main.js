@@ -2,6 +2,7 @@
 
 let habbits = [];
 const HABBIT_KEY = 'HABBIT_KEY';
+let globalActiveHabbitId;
 
 /* utils */
 
@@ -75,16 +76,35 @@ function rerenderContent(activeHabbit){
         <div class="habbit__comment">
           ${activeHabbit.days[day].comment}
         </div>
-        <button class="habbit__delete">
+        <button class="habbit__delete" onclick="dayDelete(${day})">
           <img src="./img/delete.svg" alt="delete" />
         </button>`;
         page.content.daysContainer.appendChild(element);
+    }
+    if(document.querySelector(".input_icon").classList.contains("error")){
+        document.querySelector(".input_icon").classList.remove("error");
     }
     page.content.nextDay.innerHTML = `День ${activeHabbit.days.length + 1}`;
 
 }
 
+function dayDelete(day){
+    habbits = habbits.map(habbit=>{
+        if(habbit.id===globalActiveHabbitId){
+            habbit.days.splice(day, 1);
+            return {
+                ...habbit,
+                days:habbit.days
+            };
+        }
+        return habbit;
+    });
+    rerender(globalActiveHabbitId);
+    saveData();
+}
+
 function rerender(activeHabbitId){
+    globalActiveHabbitId = activeHabbitId;
     const activeHabbit = habbits.find(habbit => habbit.id === activeHabbitId);
     if(!activeHabbit){
         return;
@@ -94,6 +114,30 @@ function rerender(activeHabbitId){
     rerenderContent(activeHabbit);
 }
 
+/* work with days */
+function addDays(event){
+    event.preventDefault();
+    const form = event.target
+    const data = new FormData(form);
+    const comment = data.get('comment');
+    form['comment'].classList.remove('error');
+    if(!comment){
+        form['comment'].classList.add('error');
+        return;
+    }
+    habbits = habbits.map(habbit=>{
+        if(habbit.id === globalActiveHabbitId){ 
+            return{
+                ...habbit,
+                days: habbit.days.concat([{comment}])
+            }
+        }
+        return habbit;
+    });
+    form['comment'].value = '';
+    rerender(globalActiveHabbitId);
+    saveData();
+}
 /* Init */
 
 (()=>{
