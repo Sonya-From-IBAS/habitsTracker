@@ -4,6 +4,30 @@ let habbits = [];
 const HABBIT_KEY = 'HABBIT_KEY';
 let globalActiveHabbitId;
 
+
+
+/* page */
+const page = {
+    menu: document.querySelector('.menu__list'),
+    header:{
+        h1: document.querySelector('.h1'),
+        progressPercent: document.querySelector(".progress__percent"),
+        progressCoverBar: document.querySelector(".progress__cover-bar")
+    },
+    content:{
+        daysContainer: document.getElementById('days'),
+        nextDay: document.getElementById('nextDay')
+    },
+    popup:{
+        index : document.getElementById('add-habbit__popup'),
+        iconField:document.querySelector(".popup__form input[name='icon']"),
+        iconName:document.querySelector(".popup__form input[name='name']"),
+        iconTarget:document.querySelector(".popup__form input[name='target']")
+
+    } 
+   
+}
+
 /* utils */
 
 function loadData(){
@@ -18,19 +42,14 @@ function saveData(){
     localStorage.setItem(HABBIT_KEY, JSON.stringify(habbits));
 }
 
-/* page */
-const page = {
-    menu: document.querySelector('.menu__list'),
-    header:{
-        h1: document.querySelector('.h1'),
-        progressPercent: document.querySelector(".progress__percent"),
-        progressCoverBar: document.querySelector(".progress__cover-bar")
-    },
-    content:{
-        daysContainer: document.getElementById('days'),
-        nextDay: document.getElementById('nextDay')
+function togglePopup(){
+    page.popup.index.classList.toggle('cover_hidden');
+    if(page.popup.iconName.classList.contains('error')){
+        page.popup.iconName.classList.remove('error');
     }
-   
+    if(page.popup.iconTarget.classList.contains('error')){
+        page.popup.iconTarget.classList.remove('error');
+    }
 }
 
 
@@ -44,7 +63,7 @@ function rerenderMenu(activeHabbit){
             element.setAttribute('menu-habbit-id', habbit.id);
             element.classList.add("menu__item");
             element.addEventListener('click', ()=>rerender(habbit.id));
-            element.innerHTML = `<img src="./img/${habbit.icon}.svg" alt="${habbit.name}" />`
+            element.innerHTML = `<img src="./img/${habbit.icon}.svg" alt="${habbit.name}"/>`
             if(activeHabbit.id === habbit.id){
                 element.classList.add('menu__item-active');
             }
@@ -109,10 +128,12 @@ function rerender(activeHabbitId){
     if(!activeHabbit){
         return;
     }
+    document.location.replace(document.location.pathname + '#' + activeHabbitId)
     rerenderMenu(activeHabbit);
     rerenderHead(activeHabbit);
     rerenderContent(activeHabbit);
 }
+
 
 /* work with days */
 function addDays(event){
@@ -138,9 +159,63 @@ function addDays(event){
     rerender(globalActiveHabbitId);
     saveData();
 }
+
+/* work with habbits */
+function setIcon(context, icon){
+    page.popup.iconField.value = icon;
+    const activeIcon = document.querySelector('.icon.icon_active');
+    activeIcon.classList.remove('icon_active');
+    context.classList.add('icon_active');
+}
+
+
+function addHabbit(event){
+    event.preventDefault();
+    const form = event.target;
+    const data = new FormData(form);
+    const name = data.get('name');
+    const icon = data.get('icon');
+    const target = data.get('target');
+
+    if(!page.popup.iconName.value){
+        page.popup.iconName.classList.add('error');
+        return;
+    }else if(page.popup.iconName.classList.contains('error')){
+        
+            page.popup.iconName.classList.remove('error')
+
+    }
+    if(!page.popup.iconTarget.value){
+        page.popup.iconTarget.classList.add('error');
+        return;
+    }else if(page.popup.iconTarget.classList.contains('error')){
+        
+        page.popup.iconTarget.classList.remove('error')
+
+}  
+    habbits = habbits.concat([{
+        id: Number(habbits.length) + 1,
+        icon,
+        name,
+        target,
+        days: []
+    }]);
+    rerender(globalActiveHabbitId);
+    saveData();
+    form["name"].value = '';
+    form["target"].value = '';
+    page.popup.index.classList.toggle('cover_hidden');
+
+}
 /* Init */
 
 (()=>{
     loadData();
-    rerender(habbits[0].id)
+    const hashId = Number(document.location.hash.replace('#', ''));
+    const urlHabbit = habbits.find(habbit => habbit.id===hashId);
+    if(urlHabbit){
+        rerender(urlHabbit.id);
+    }else{
+    rerender(habbits[0].id);
+    }
 })()
