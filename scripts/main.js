@@ -55,18 +55,22 @@ function togglePopup(){
 
 /* render */
 function rerenderMenu(activeHabbit){
-
+    page.menu.innerHTML = '';
     for(const habbit of habbits){
         const existed = document.querySelector(`[menu-habbit-id="${habbit.id}"]`)
         if(!existed){
-            const element = document.createElement('button');
-            element.setAttribute('menu-habbit-id', habbit.id);
-            element.classList.add("menu__item");
-            element.addEventListener('click', ()=>rerender(habbit.id));
-            element.innerHTML = `<img src="./img/${habbit.icon}.svg" alt="${habbit.name}"/>`
-            if(activeHabbit.id === habbit.id){
-                element.classList.add('menu__item-active');
-            }
+            const element = document.createElement('div')
+            element.classList.add('menu__list-item');
+            const active = activeHabbit.id === habbit.id?" menu__item-active": "";
+            element.innerHTML = `
+            <button class="menu__item${active}" menu-habbit-id='${habbit.id}' onclick="rerender(${habbit.id})">
+                <img  src="./img/${habbit.icon}.svg" class="invetr" alt="${habbit.name}"/>
+            </button>
+
+            <button class="menu__item-close" onclick="deleteMenuItem(${habbit.id})">
+                <img src="./img/menu_close.svg" alt="close">
+            </button>
+            `
             page.menu.appendChild(element);
             continue;
         }
@@ -75,6 +79,11 @@ function rerenderMenu(activeHabbit){
         }else{
             existed.classList.remove('menu__item-active');
         }
+    }
+    if(habbits.length<2){
+        document.querySelector('.menu__item-close').classList.add('none');
+    }else if(document.querySelector('.menu__item-close').classList.contains('none')){
+        document.querySelector('.menu__item-close').classList.remove('none');
     }
 }
 
@@ -161,6 +170,20 @@ function addDays(event){
 }
 
 /* work with habbits */
+function deleteMenuItem(dayId){
+    habbits.map((habbit, index)=>{
+                if(habbit.id === dayId){
+                    habbits.splice(index, 1);
+                }
+            })
+            console.log(habbits);
+    globalActiveHabbitId = habbits[0].id;
+    rerenderMenu(globalActiveHabbitId);
+    saveData();
+    rerender(globalActiveHabbitId);
+
+}
+
 function setIcon(context, icon){
     page.popup.iconField.value = icon;
     const activeIcon = document.querySelector('.icon.icon_active');
@@ -194,7 +217,7 @@ function addHabbit(event){
 
 }  
     habbits = habbits.concat([{
-        id: Number(habbits.length) + 1,
+        id: habbits[habbits.length-1].id + 1,
         icon,
         name,
         target,
@@ -205,6 +228,8 @@ function addHabbit(event){
     form["name"].value = '';
     form["target"].value = '';
     page.popup.index.classList.toggle('cover_hidden');
+    rerenderMenu(globalActiveHabbitId);
+
 
 }
 /* Init */
